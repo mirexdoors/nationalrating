@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <rating-table />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ratingTable from './components/ratingTable'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    ratingTable
   }
 }
 </script>
