@@ -1,15 +1,18 @@
 <template>
   <div id="app">
+    <header-block />
     <rating-table />
   </div>
 </template>
 
 <script>
-import ratingTable from './components/ratingTable'
+  import headerBlock from './components/header-block';
+  import ratingTable from './components/ratingTable';
 
 export default {
   name: 'app',
   components: {
+    headerBlock,
     ratingTable
   }
 }
