@@ -9,10 +9,12 @@ export default new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: "/player/:index/", component: player,
+      path: '/player/:playername/',
+      component: player,
     },
     {
-      path: "/", component: rating,
+      path: '',
+      component: rating,
     },
   ],
 });
