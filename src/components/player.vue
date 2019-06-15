@@ -4,8 +4,10 @@
 
 <script>
   export default {
+    name: 'player',
     props: {},
     data: () => ({
+     player: {}
     }),
   }
 </script>

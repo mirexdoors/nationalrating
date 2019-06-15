@@ -11,7 +11,9 @@
             </li>
             <li class="rating__item" v-for="(player, index) of players" v-bind:key="player.name">
                 <div class="rating__item-content rating__item-content_place">{{index + 1}}</div>
-                <div class="rating__item-content rating__item-content_name"><router-link :to="'/player/' + index">{{player.name}}</router-link></div>
+                <div class="rating__item-content rating__item-content_name">
+                    <router-link :to="'/player/' + createUrl(player.name) + '/'">{{player.name}}</router-link>
+                </div>
                 <div class="rating__item-content">{{player.summ}}</div>
                 <div class="rating__item-content">{{player.topEight}}</div>
                 <div class="rating__item-content">{{player.tournamentCnt}}</div>
@@ -32,7 +34,7 @@
     data: () => ({
       players: [],
     }),
-    created() {
+    mounted() {
       axios.get(API_URL)
         .then(response => {
             const players = Object.entries(response.data.data);

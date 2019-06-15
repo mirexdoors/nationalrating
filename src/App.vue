@@ -2,18 +2,21 @@
   <div id="app">
     <header-block />
     <rating-table />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import headerBlock from './components/header-block';
+  import headerBlock from './components/headerBlock';
   import ratingTable from './components/ratingTable';
+  import player from './components/player';
 
 export default {
   name: 'app',
   components: {
     headerBlock,
-    ratingTable
+    ratingTable,
+    player
   }
 }
 </script>
