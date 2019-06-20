@@ -1,4 +1,5 @@
 export const createUrl = (str) => {
+  const PATH = '/player/';
   const ru = {
     'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
     'е': 'e', 'ё': 'e', 'ж': 'j', 'з': 'z', 'и': 'i',
@@ -20,5 +21,5 @@ export const createUrl = (str) => {
       })
     );
   }
-  return n_str.join('');
+  return PATH + n_str.join('') + '/';
 };

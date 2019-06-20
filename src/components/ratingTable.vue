@@ -12,12 +12,20 @@
             <li class="rating__item" v-for="(player, index) of players" v-bind:key="player.name">
                 <div class="rating__item-content rating__item-content_place">{{index + 1}}</div>
                 <div class="rating__item-content rating__item-content_name">
-                    <router-link :to="'/player/' + createUrl(player.name) + '/'">{{player.name}}</router-link>
+                    <router-link :to="createUrl(player.name)">{{player.name}}</router-link>
                 </div>
-                <div class="rating__item-content">{{player.summ}}</div>
-                <div class="rating__item-content">{{player.topEight}}</div>
-                <div class="rating__item-content">{{player.tournamentCnt}}</div>
-                <div class="rating__item-content">{{player.rating}}</div>
+                <div class="rating__item-content">
+                    <router-link :to="createUrl(player.name)">{{player.summ}}</router-link>
+                </div>
+                <div class="rating__item-content">
+                    <router-link :to="createUrl(player.name)">{{player.topEight}}</router-link>
+                </div>
+                <div class="rating__item-content">
+                    <router-link :to="createUrl(player.name)">{{player.tournamentCnt}}</router-link>
+                </div>
+                <div class="rating__item-content">
+                    <router-link :to="createUrl(player.name)">{{player.rating}}</router-link>
+                </div>
             </li>
         </ul>
     </div>
@@ -34,27 +42,28 @@
     data: () => ({
       players: [],
     }),
+    methods: {},
     mounted() {
       axios.get(API_URL)
-        .then(response => {
-            const players = Object.entries(response.data.data);
-            this.players = players
-              .filter(player => {
-                return player[1][1];
-              })
-              .map(player => {
-                player = player[1];
-                return {
-                  place: player[1],
-                  name: player[3],
-                  summ: player[4],
-                  topEight: player[5],
-                  tournamentCnt: player[6],
-                  rating: player[7],
-                }
-              });
-          }
-        )
+      .then(response => {
+          const players = Object.entries(response.data.data);
+          this.players = players
+          .filter(player => {
+            return player[1][1];
+          })
+          .map(player => {
+            player = player[1];
+            return {
+              place: player[1],
+              name: player[3],
+              summ: player[4],
+              topEight: player[5],
+              tournamentCnt: player[6],
+              rating: player[7],
+            }
+          });
+        }
+      )
       ;
     }
   }
