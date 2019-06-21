@@ -1,11 +1,11 @@
 <template>
-<h1>Детальная</h1>
+<h1>{{$route.params.name}}</h1>
 </template>
 
 <script>
+
   export default {
     name: 'player',
-    props: {},
     data: () => ({
      player: {}
     }),
