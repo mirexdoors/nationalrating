@@ -1,5 +1,8 @@
 <template>
     <div class="rating globalWrapper">
+        <div class="rating__filter">
+           <input name="query" aria-placeholder="Найти игрока" placeholder="Найти игрока" class="rating__filterInput" v-model="searchQuery">
+        </div>
         <ul class="rating__list" v-if="players && players.length">
             <li class="rating__item rating__item_headers">
                 <div class="rating__item-content rating__item-content_place">#</div>
@@ -9,9 +12,9 @@
                 <div class="rating__item-content">Турниры</div>
                 <div class="rating__item-content">Рейтинг</div>
             </li>
-            <li class="rating__item" v-for="(player, index) of players" v-bind:key="player.name">
+            <li class="rating__item" v-for="player of filterPlayers" v-bind:key="player.name">
                 <div class="rating__item-content rating__item-content_place">
-                    <router-link class="rating__item-link" :to="createUrl(player.name)">{{index + 1}}</router-link>
+                    <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.place}}</router-link>
                 </div>
                 <div class="rating__item-content rating__item-content_name">
                     <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.name}}</router-link>
@@ -44,9 +47,21 @@
     name: 'ratingTable',
     props: {},
     data: () => ({
+      searchQuery: '',
       players: [],
     }),
-    methods: {},
+    methods: {
+    },
+    computed: {
+      filterPlayers() {
+        if (this.searchQuery.length === 0) {
+          return this.players;
+        }
+        return this.players.filter(item=> {
+            return item.name.includes(this.searchQuery);
+          });
+      }
+    },
     mounted() {
       this.players = getPlayers(API_URL);
     }
@@ -80,9 +95,27 @@
     .globalWrapper {
         margin: 0 80px;
     }
-
+    .rating__filter {
+        background-color: #333;
+        padding: 1rem;
+    }
+    .rating__filterInput {
+        width: 100%;
+        padding: 0 1.5rem;
+        line-height: 2;
+        font-size: 18px;
+    }
+    .rating__filterInput:active, .rating__filterInput:focus {
+        outline-color: #ffc107;
+        -moz-outline-color: #ffc107;
+        outline-offset: -3px;
+        outline-style: solid;
+        outline-width: 2px;
+    }
     .rating__list {
         width: 100%;
+        margin: 0;
+        padding: 0;
         list-style-type: none;
     }
 
