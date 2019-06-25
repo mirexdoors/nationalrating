@@ -16,6 +16,9 @@
       headerBlock,
       ratingTable,
       player,
+    },
+    mounted() {
+      this.$store.dispatch('responsePlayers');
     }
   }
 </script>

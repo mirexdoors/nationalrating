@@ -1,9 +1,10 @@
 <template>
     <div class="rating globalWrapper">
         <div class="rating__filter">
-           <input name="query" aria-placeholder="Найти игрока" placeholder="Найти игрока" class="rating__filterInput" v-model="searchQuery">
+            <input name="query" aria-placeholder="Найти игрока" placeholder="Найти игрока" class="rating__filterInput"
+                   v-model="searchQuery">
         </div>
-        <ul class="rating__list" v-if="players && players.length">
+        <ul class="rating__list" v-if="filterPlayers && filterPlayers.length">
             <li class="rating__item rating__item_headers">
                 <div class="rating__item-content rating__item-content_place">#</div>
                 <div class="rating__item-content rating__item-content_name">Игрок</div>
@@ -40,71 +41,47 @@
 </template>
 
 <script>
-  import axios from 'axios';
 
-  const API_URL = 'https://squashrating.ru/api/';
   export default {
     name: 'ratingTable',
     props: {},
     data: () => ({
       searchQuery: '',
-      players: [],
     }),
-    methods: {
-    },
+    methods: {},
     computed: {
       filterPlayers() {
+        const storePlayers = this.$store.getters.players;
         if (this.searchQuery.length === 0) {
-          return this.players;
+          return storePlayers;
         }
-        return this.players.filter(item=> {
-            return item.name.includes(this.searchQuery);
-          });
-      }
+        return storePlayers.filter(item => {
+          return item.name.includes(this.searchQuery);
+        });
+      },
     },
-    mounted() {
-      this.players = getPlayers(API_URL);
-    }
+    mounted() {}
   }
 
-  const getPlayers = (url) => {
-    const result = [];
-    axios.get(url)
-    .then(response => {
-      Object.entries(response.data.data)
-      .filter(player => {
-        return player[1][1];
-      })
-      .map(player => {
-        player = player[1];
-        result.push({
-          place: player[1],
-          name: player[3],
-          summ: player[4],
-          topEight: player[5],
-          tournamentCnt: player[6],
-          rating: player[7],
-        });
-      });
-    });
-    return result;
-  }
 </script>
 
 <style scoped>
     .globalWrapper {
         margin: 0 80px;
     }
+
     .rating__filter {
         background-color: #333;
         padding: 1rem;
     }
+
     .rating__filterInput {
         width: 100%;
         padding: 0 1.5rem;
         line-height: 2;
         font-size: 18px;
     }
+
     .rating__filterInput:active, .rating__filterInput:focus {
         outline-color: #ffc107;
         -moz-outline-color: #ffc107;
@@ -112,6 +89,7 @@
         outline-style: solid;
         outline-width: 2px;
     }
+
     .rating__list {
         width: 100%;
         margin: 0;
