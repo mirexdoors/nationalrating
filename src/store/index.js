@@ -4,28 +4,31 @@ import axios from 'axios';
 
 Vue.use(Vuex);
 
-const API_URL = 'https://squashrating.ru/api/';
+
 export const store = new Vuex.Store({
   state: {
-    players: null,
+    players: {
+      men: null,
+      women: null,
+    },
   },
   getters: {
    players(state) {
       return state.players;
-    },
-    player(state) {
-      return state.players.filter();
     }
   },
   mutations: {
-    setPlayers(state, payload) {
-      state.players = payload;
+    setPlayersMen(state, payload) {
+      state.players.men = payload;
+    },
+    setPlayersWomen(state, payload) {
+      state.players.women = payload;
     },
   },
   actions: {
-    responsePlayers({commit}) {
+    responsePlayers({commit}, url) {
       const result = [];
-      axios.get(API_URL)
+      axios.get(url)
       .then(response => {
         Object.entries(response.data.data)
         .filter(player => {
@@ -34,7 +37,7 @@ export const store = new Vuex.Store({
         .map(player => {
           player = player[1];
           result.push({
-            place: player[1],
+            place: player[0],
             name: player[3],
             summ: player[4],
             topEight: player[5],
@@ -43,7 +46,12 @@ export const store = new Vuex.Store({
           });
         });
       });
-      commit('setPlayers', result);
+      if (url === 'https://squashrating.ru/api/') {
+        commit('setPlayersMen', result);
+      } else {
+        commit('setPlayersWomen', result);
+      }
+
     },
   },
 });

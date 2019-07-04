@@ -13,7 +13,11 @@ export default new VueRouter({
       component: player,
     },
     {
-      path: '',
+      path: '/',
+      component: rating,
+    },
+    {
+      path: '/women/',
       component: rating,
     },
   ],

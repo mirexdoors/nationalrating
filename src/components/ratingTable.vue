@@ -1,43 +1,49 @@
 <template>
-    <div class="rating globalWrapper">
-        <div class="rating__filter">
+    <div class="rating">
+        <div class="rating__filter globalWrapper">
             <input name="query" aria-placeholder="Найти игрока" placeholder="Найти игрока" class="rating__filterInput"
                    v-model="searchQuery">
         </div>
-        <ul class="rating__list" v-if="filterPlayers && filterPlayers.length">
-            <li class="rating__item rating__item_headers">
-                <div class="rating__item-content rating__item-content_place">#</div>
-                <div class="rating__item-content rating__item-content_name">Игрок</div>
-                <div class="rating__item-content">Сумма баллов</div>
-                <div class="rating__item-content">8 лучших</div>
-                <div class="rating__item-content">Турниры</div>
-                <div class="rating__item-content">Рейтинг</div>
-            </li>
-            <li class="rating__item" v-for="player of filterPlayers" v-bind:key="player.name">
-                <div class="rating__item-content rating__item-content_place">
-                    <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.place}}</router-link>
-                </div>
-                <div class="rating__item-content rating__item-content_name">
-                    <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.name}}</router-link>
-                </div>
-                <div class="rating__item-content">
-                    <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.summ}}</router-link>
-                </div>
-                <div class="rating__item-content">
-                    <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.topEight}}
-                    </router-link>
-                </div>
-                <div class="rating__item-content">
-                    <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.tournamentCnt}}
-                    </router-link>
-                </div>
-                <div class="rating__item-content">
-                    <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.rating}}</router-link>
-                </div>
-            </li>
-        </ul>
-    </div>
+        <div class="globalWrapper">
+            <ul class="rating__list" v-if="filterPlayers && filterPlayers.length">
 
+                <li class="rating__item rating__item_headers">
+                    <div class="rating__item-content rating__item-content_place">#</div>
+                    <div class="rating__item-content rating__item-content_name">Игрок</div>
+                    <div class="rating__item-content">Сумма баллов</div>
+                    <div class="rating__item-content">8 лучших</div>
+                    <div class="rating__item-content">Турниры</div>
+                    <div class="rating__item-content">Рейтинг</div>
+                </li>
+                <li class="rating__item" v-for="player of filterPlayers" v-bind:key="player.name">
+                    <div class="rating__item-content rating__item-content_place">
+                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.place}}
+                        </router-link>
+                    </div>
+                    <div class="rating__item-content rating__item-content_name">
+                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.name}}
+                        </router-link>
+                    </div>
+                    <div class="rating__item-content">
+                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.summ}}
+                        </router-link>
+                    </div>
+                    <div class="rating__item-content">
+                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.topEight}}
+                        </router-link>
+                    </div>
+                    <div class="rating__item-content">
+                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.tournamentCnt}}
+                        </router-link>
+                    </div>
+                    <div class="rating__item-content">
+                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.rating}}
+                        </router-link>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -51,7 +57,11 @@
     methods: {},
     computed: {
       filterPlayers() {
-        const storePlayers = this.$store.getters.players;
+        let storePlayers = this.$store.getters.players.men;
+        if (this.$route.path === '/women/') {
+          storePlayers = this.$store.getters.players.women;
+        }
+
         if (this.searchQuery.length === 0) {
           return storePlayers;
         }
@@ -60,19 +70,17 @@
         });
       },
     },
-    mounted() {}
+    mounted() {
+    }
   }
 
 </script>
 
 <style scoped>
-    .globalWrapper {
-        margin: 0 80px;
-    }
 
     .rating__filter {
         background-color: #333;
-        padding: 1rem;
+        padding: 1rem 0;
     }
 
     .rating__filterInput {
@@ -95,6 +103,7 @@
         margin: 0;
         padding: 0;
         list-style-type: none;
+        background-color: #fff;
     }
 
     .rating__item {
