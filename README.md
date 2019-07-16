@@ -5,3 +5,5 @@
 * Lazyloading data
 * Adaptive styles
 * SSR
+* Preloader
+* pwa

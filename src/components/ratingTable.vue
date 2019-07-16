@@ -70,10 +70,14 @@
         });
       },
     },
-    mounted() {
+    beforeRouteLeave(to) {  //set player in store
+      const playerName = to.params.playername;
+      if (playerName) {
+        this.$store.dispatch('setDetailPlayer', playerName);
+      }
+
     }
   }
-
 </script>
 
 <style scoped>
