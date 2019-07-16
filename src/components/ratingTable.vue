@@ -70,12 +70,12 @@
         });
       },
     },
-    beforeRouteLeave(to) {  //set player in store
+    beforeRouteLeave(to, from, next) {  //set player in store
       const playerName = to.params.playername;
       if (playerName) {
         this.$store.dispatch('setDetailPlayer', playerName);
       }
-
+      next();
     }
   }
 </script>
