@@ -1,5 +1,11 @@
-export const createUrl = (str) => {
-  const PATH = '/player/';
+export const translit = (str, isUrl = false) => {
+  let path = '';
+  let ending = '';
+  if (isUrl) {
+    path  = '/player/';
+    ending = '/';
+  }
+
   const ru = {
     'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
     'е': 'e', 'ё': 'e', 'ж': 'j', 'з': 'z', 'и': 'i',
@@ -21,5 +27,5 @@ export const createUrl = (str) => {
       })
     );
   }
-  return PATH + n_str.join('') + '/';
+  return path + n_str.join('') + ending;
 };

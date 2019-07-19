@@ -17,27 +17,27 @@
                 </li>
                 <li class="rating__item" v-for="player of filterPlayers" v-bind:key="player.name">
                     <div class="rating__item-content rating__item-content_place">
-                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.place}}
+                        <router-link class="rating__item-link" :to="translit(player.name, true)">{{player.place}}
                         </router-link>
                     </div>
                     <div class="rating__item-content rating__item-content_name">
-                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.name}}
+                        <router-link class="rating__item-link" :to="translit(player.name, true)">{{player.name}}
                         </router-link>
                     </div>
                     <div class="rating__item-content">
-                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.summ}}
+                        <router-link class="rating__item-link" :to="translit(player.name, true)">{{player.summ}}
                         </router-link>
                     </div>
                     <div class="rating__item-content">
-                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.topEight}}
+                        <router-link class="rating__item-link" :to="translit(player.name, true)">{{player.topEight}}
                         </router-link>
                     </div>
                     <div class="rating__item-content">
-                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.tournamentCnt}}
+                        <router-link class="rating__item-link" :to="translit(player.name, true)">{{player.tournamentCnt}}
                         </router-link>
                     </div>
                     <div class="rating__item-content">
-                        <router-link class="rating__item-link" :to="createUrl(player.name)">{{player.rating}}
+                        <router-link class="rating__item-link" :to="translit(player.name)">{{player.rating}}
                         </router-link>
                     </div>
                 </li>
@@ -70,10 +70,16 @@
         });
       },
     },
-    beforeRouteLeave(to, from, next) {  //set player in store
+    /*set player in store*/
+    beforeRouteLeave(to, from, next) {
       const playerName = to.params.playername;
-      if (playerName) {
-        this.$store.dispatch('setDetailPlayer', playerName);
+      /*find player in vuex*/
+      const detailPlayer = this.filterPlayers.filter(item => {
+        if (this.translit(item.name) === playerName) return item;
+      })[0];
+
+      if (detailPlayer) {
+        this.$store.dispatch('setDetailPlayer', detailPlayer);
       }
       next();
     }
