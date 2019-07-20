@@ -33,7 +33,7 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    setDetailPlayer({commit}, player){
+    setDetailPlayer({commit}, player) {
       commit('setDetailPlayer', player);
     },
     responsePlayers({commit}, url) {
@@ -46,8 +46,15 @@ export const store = new Vuex.Store({
             })
             .map(player => {
               player = player[1];
+
+              if (!player[2]) {
+                player[2] = '0';
+              }
+
               result.push({
                 place: player[0],
+                past: player[1],
+                movement: player[2],
                 name: player[3],
                 summ: player[4],
                 topEight: player[5],
@@ -61,7 +68,6 @@ export const store = new Vuex.Store({
       } else {
         commit('setPlayersWomen', result);
       }
-
     },
   },
 });

@@ -1,5 +1,5 @@
 <template>
-    <div class="rating">
+    <section class="rating">
         <div class="rating__filter globalWrapper">
             <input name="query" aria-placeholder="Найти игрока" placeholder="Найти игрока" class="rating__filterInput"
                    v-model="searchQuery">
@@ -43,7 +43,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>

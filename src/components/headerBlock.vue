@@ -56,7 +56,7 @@
     }
 
     .menu__link {
-        padding: 10px;
+        padding: 1rem;
         font-weight: 600;
         color: #ffc107;
         text-decoration-line: none;
