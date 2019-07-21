@@ -41,10 +41,9 @@
     data: () => ({}),
     computed: {
       player() {
-        if (this.$store.getters.detailPlayer) {
-          console.log(this.$store.getters.detailPlayer.movement)
-          return this.$store.getters.detailPlayer;
-        };
+        if (this.$store.state.detailPlayer) {
+          return this.$store.state.detailPlayer;
+        }
 
       },
     },

@@ -46,11 +46,14 @@ export const store = new Vuex.Store({
             })
             .map(player => {
               player = player[1];
-
+              let gender = 'women';
               if (!player[2]) {
                 player[2] = '0';
               }
 
+              if (url === 'https://squashrating.ru/api/') {
+                gender = 'men';
+              }
               result.push({
                 place: player[0],
                 past: player[1],
@@ -60,6 +63,7 @@ export const store = new Vuex.Store({
                 topEight: player[5],
                 tournamentCnt: player[6],
                 rating: player[7],
+                gender: gender,
               });
             });
         });

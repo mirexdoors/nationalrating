@@ -9,7 +9,7 @@ export default new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/player/:playername/',
+      path: '/player/:gender/:playername/',
       component: player,
     },
     {

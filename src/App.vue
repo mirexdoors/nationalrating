@@ -19,8 +19,13 @@
       headerBlock,
     },
     mounted() {
-      const apiUrl = getApiUrl(this.$route.path);
-      this.$store.dispatch('responsePlayers', apiUrl);
+      if (!this.$route.path.includes('player')) {
+        const apiUrl = getApiUrl(this.$route.path);
+        this.$store.dispatch('responsePlayers', apiUrl);
+      } else {
+        console.log(this.$route.path)
+      }
+
     },
     updated() {
       const apiUrl = getApiUrl(this.$route.path);
