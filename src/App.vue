@@ -4,11 +4,13 @@
         <keep-alive>
             <router-view/>
         </keep-alive>
+        <up-button />
     </div>
 </template>
 
 <script>
   import headerBlock from './components/headerBlock';
+  import UpButton from "./components/upButton";
 
   const API_URL_MEN = 'https://squashrating.ru/api/';
   const API_URL_WOMEN = 'https://squashrating.ru/api/?isWomen=true';
@@ -16,6 +18,7 @@
   export default {
     name: 'app',
     components: {
+      UpButton,
       headerBlock,
     },
     mounted() {
@@ -57,6 +60,7 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
+        position: relative;
     }
 
     .globalWrapper {
