@@ -22,10 +22,7 @@
       if (!this.$route.path.includes('player')) {
         const apiUrl = getApiUrl(this.$route.path);
         this.$store.dispatch('responsePlayers', apiUrl);
-      } else {
-        console.log(this.$route.path)
       }
-
     },
     updated() {
       const apiUrl = getApiUrl(this.$route.path);
@@ -63,6 +60,39 @@
     }
 
     .globalWrapper {
-        margin: 0 80px;
+        margin: 0 12rem;
+    }
+    @media all and (max-width: 1169px) {
+        .globalWrapper {
+            margin: 0 9rem;
+        }
+    }
+    @media all and (max-width: 990px) {
+        .globalWrapper {
+            margin: 0 7rem;
+        }
+    }
+    @media all and (max-width: 768px) {
+        .globalWrapper {
+            margin: 0 4rem;
+        }
+    }
+    @media all and (max-width: 640px) {
+        .globalWrapper {
+            margin: 0 2rem;
+        }
+    }
+    @media all and (max-width: 520px) {
+        .globalWrapper {
+            margin: 0 2rem;
+        }
+        .isMobileHidden {
+            display: none;
+        }
+    }
+    @media all and (max-width: 360px) {
+        .isMobileHidden-xs {
+            display: none;
+        }
     }
 </style>

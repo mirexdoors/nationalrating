@@ -44,7 +44,7 @@
         if (this.$store.state.detailPlayer) {
           return this.$store.state.detailPlayer;
         }
-
+        return false;
       },
     },
     mounted() {
@@ -64,11 +64,24 @@
     }
 
     .player__statsList {
-        width: 40%;
+        width: 30%;
+        padding: 0;
         list-style-type: none;
     }
+
     .player__statsItem {
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        padding: .5rem 1.5rem;
+        font-size: 1.2rem;
+    }
+
+    .player__statsItem:nth-child(odd) {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .player__statsTitle {
+        font-weight: 400;
     }
 </style>

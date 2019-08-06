@@ -40,19 +40,19 @@
     }
 
     .header__title {
-        margin: 0;
+        margin: 1rem 0;
         font-size: 3.5rem;
         font-weight: 300;
     }
 
     .menu__list {
         display: flex;
-        padding: 0;
+        padding: 1rem 0;
         list-style-type: none;
     }
 
     .menu__item {
-        margin-right: 30px;
+        margin-right: 1rem;
     }
 
     .menu__link {
@@ -68,5 +68,11 @@
         -moz-border-radius: .25rem;
         border-radius: .25rem;
         background-color: #ffc107;
+    }
+    @media all and (max-width: 520px) {
+        .header__title {
+            padding: 0 1rem;
+            font-size: 2rem;
+        }
     }
 </style>

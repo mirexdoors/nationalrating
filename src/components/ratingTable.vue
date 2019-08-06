@@ -4,16 +4,16 @@
             <input name="query" aria-placeholder="Найти игрока" placeholder="Найти игрока" class="rating__filterInput"
                    v-model="searchQuery">
         </div>
-        <div class="globalWrapper">
+        <div class="globalWrapper rating__wrapper">
             <ul class="rating__list" v-if="filterPlayers && filterPlayers.length">
 
                 <li class="rating__item rating__item_headers">
                     <div class="rating__item-content rating__item-content_place">#</div>
                     <div class="rating__item-content rating__item-content_name">Игрок</div>
-                    <div class="rating__item-content">Сумма баллов</div>
-                    <div class="rating__item-content">8 лучших</div>
-                    <div class="rating__item-content">Турниры</div>
-                    <div class="rating__item-content">Рейтинг</div>
+                    <div class="rating__item-content rating__item-content_rate">Рейтинг</div>
+                    <div class="rating__item-content isMobileHidden-xs">Сумма баллов</div>
+                    <div class="rating__item-content isMobileHidden">8 лучших</div>
+                    <div class="rating__item-content rating__item-content_tournamentsAmount">Турниры</div>
                 </li>
                 <li class="rating__item" v-for="player of filterPlayers" v-bind:key="player.name">
                     <div class="rating__item-content rating__item-content_place">
@@ -24,20 +24,20 @@
                         <router-link class="rating__item-link" :to="translit(player.name, player.gender, true)">{{player.name}}
                         </router-link>
                     </div>
-                    <div class="rating__item-content">
+                    <div class="rating__item-content rating__item-content_rate">
+                        <router-link class="rating__item-link" :to="translit(player.name, player.gender, true)">{{player.rating}}
+                        </router-link>
+                    </div>
+                    <div class="rating__item-content isMobileHidden-xs">
                         <router-link class="rating__item-link" :to="translit(player.name, player.gender, true)">{{player.summ}}
                         </router-link>
                     </div>
-                    <div class="rating__item-content">
+                    <div class="rating__item-content isMobileHidden">
                         <router-link class="rating__item-link" :to="translit(player.name, player.gender, true)">{{player.topEight}}
                         </router-link>
                     </div>
-                    <div class="rating__item-content">
+                    <div class="rating__item-content rating__item-content_tournamentsAmount">
                         <router-link class="rating__item-link" :to="translit(player.name, player.gender, true)">{{player.tournamentCnt}}
-                        </router-link>
-                    </div>
-                    <div class="rating__item-content">
-                        <router-link class="rating__item-link" :to="translit(player.name, player.gender, true)">{{player.rating}}
                         </router-link>
                     </div>
                 </li>
@@ -73,7 +73,7 @@
     /*set player in store*/
     beforeRouteLeave(to, from, next) {
       const playerName = to.params.playername;
-      console.log( playerName)
+
       /*find player in vuex*/
       const detailPlayer = this.filterPlayers.filter(item => {
         if (this.translit(item.name) === playerName) return item;
@@ -108,7 +108,11 @@
         outline-style: solid;
         outline-width: 2px;
     }
-
+    .rating__item_headers {
+        position: sticky;
+        position: -webkit-sticky;
+        top: 0;
+    }
     .rating__list {
         width: 100%;
         margin: 0;
@@ -120,7 +124,7 @@
     .rating__item {
         display: flex;
         justify-content: flex-start;
-        font-size: 18px;
+        font-size: 1rem;
     }
 
     .rating__item:nth-child(odd) {
@@ -157,5 +161,53 @@
 
     .rating__item-content_name {
         width: 35%;
+    }
+    @media all and (max-width: 520px) {
+       .rating__wrapper.globalWrapper {
+            margin: 0;
+        }
+
+        .rating__item-content_place {
+            width: 8%;
+        }
+        .rating__item-content_tournamentsAmount {
+            text-align: center;
+        }
+    }
+    @media all and (max-width: 420px) {
+        .rating__item-content_place {
+            width: 10%;
+        }
+        .rating__item-content_name {
+            width: 33%;
+        }
+        .rating__item-content_tournamentsAmount {
+            text-align: center;
+            width: 10%;
+        }
+        .rating__item-content_rate {
+            width: 20%;
+        }
+    }
+    @media all and (max-width: 376px) {
+        .rating__item-link  {
+            padding: 0.5rem;
+        }
+        .rating__item-content_tournamentsAmount {
+            width: 25%;
+        }
+        .rating__item_headers .rating__item-content {
+            padding: 0.5rem;
+        }
+        .rating__item-content_place {
+            width: 10%;
+            padding-left: 0;
+        }
+        .rating__item-content_name {
+            width: 40%;
+        }
+        .rating__item-content_rate {
+            width: 30%;
+        }
     }
 </style>
